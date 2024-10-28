@@ -29,52 +29,62 @@ public class Bag<T> {
         return count;
     }
 
+    // Returns the total number of elements in the bag
+    public int size() {
+        return items.size();
+    }
+
+    // Merges the elements of another bag into the current bag
+    public void merge(Bag<T> otherBag) {
+        this.items.addAll(otherBag.items);
+    }
+
+    // Returns a new bag containing only the distinct elements from the current bag
+    public Bag<T> distinct() {
+        Bag<T> distinctBag = new Bag<>();
+        for (T item : items) {
+            if (!distinctBag.contains(item)) {
+                distinctBag.add(item);
+            }
+        }
+        return distinctBag;
+    }
+
     @Override
     public String toString() {
         return items.toString();
     }
 
     public static void main(String[] args) {
-        // Create an instance of the Bag class.
-        Bag<String> bag = new Bag<>();
+        // Create two instances of the Bag class.
+        Bag<String> bag1 = new Bag<>();
+        Bag<String> bag2 = new Bag<>();
 
-        // Add several elements to the bag, including duplicates.
-        bag.add("mario");
-        bag.add("luigi");
-        bag.add("toad");
-        bag.add("bowser");
-        bag.add("luigi");
-        bag.add("goomba");
-
-        // Print the bag contents.
-        System.out.println("Bag contents: " + bag);
-        System.out.println();
-
-        // Test the contains method for a few elements.
-        System.out.println("Contains mario? " + bag.contains("mario"));
-        System.out.println("Contains toad? " + bag.contains("toad"));
-        System.out.println("Contains peach? " + bag.contains("peach"));
-        System.out.println();
-
-        // Test the count method for a few elements.
-        System.out.println("Count of mario: " + bag.count("mario"));
-        System.out.println("Count of luigi: " + bag.count("luigi"));
-        System.out.println("Count of peach: " + bag.count("peach"));
-        System.out.println();
-
-        // Remove an element from the bag.
-        bag.remove("luigi");
+        // Add elements to each bag, including duplicates.
+        bag1.add("mario");
+        bag1.add("luigi");
+        bag1.add("toad");
+        bag1.add("luigi");
         
-        // Print the bag contents again.
-        System.out.println("Bag contents after removing a luigi: " + bag);
+        bag2.add("peach");
+        bag2.add("mario");
+        bag2.add("yoshi");
+        bag2.add("peach");
+        bag2.add("peach");
+
+        // Print the size of each bag.
+        System.out.println("Size of bag1: " + bag1.size());
+        System.out.println("Size of bag2: " + bag2.size());
         System.out.println();
 
-        // Test the contains method for the removed element.
-        System.out.println("Contains luigi? " + bag.contains("luigi"));
+        // Merge the two bags.
+        bag1.merge(bag2);
+        System.out.println("Merged bag contents: " + bag1);
         System.out.println();
-        
-        // Test the count method for the removed element.
-        System.out.println("Count of luigi: " + bag.count("luigi"));
+
+        // Create a new bag with distinct elements.
+        Bag<String> distinctBag = bag1.distinct();
+        System.out.println("Distinct bag contents: " + distinctBag);
         System.out.println();
     }
 }
